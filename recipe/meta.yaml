@@ -12,10 +12,10 @@ source:
 build:
   number: 0
   preserve_egg_dir: True
-  script: python setup.py install
+  script: ${PYTHON} setup.py install
 
 requirements:
-  build:
+  host:
     - python
   run:
     - python
@@ -36,3 +36,4 @@ extra:
     - pelson
     - sigmavirus24
     - ocefpaf
+    - mingwandroid
