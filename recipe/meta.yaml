@@ -38,7 +38,7 @@ test:
 about:
   home: https://github.com/certifi/python-certifi
   license: MPL-2.0
-  license_file: python-certifi/LICENSE
+  license_file: certifi/LICENSE
   summary: Python package for providing Mozilla's CA Bundle.
   description: |
     Certifi is a curated collection of Root Certificates for validating the
