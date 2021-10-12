@@ -24,15 +24,14 @@ build:
   number: 0
 
 requirements:
-  build:
-    - python                                # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}    # [build_platform != target_platform]
   host:
     - python
   run:
     - python
 
 test:
+  requires:
+    - python <3.10
   imports:
     - certifi
 
