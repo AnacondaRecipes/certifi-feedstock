@@ -1,4 +1,4 @@
-{% set version = "2021.5.30" %}
+{% set version = "2021.10.8" %}
 
 {% set pip_version = "20.2.3" %}
 {% set setuptools_version = "49.6.0" %}
@@ -9,7 +9,7 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/c/certifi/certifi-{{ version }}.tar.gz
-    sha256: 2bbf76fd432960138b3ef6dda3dde0544f27cbf8546c458e60baf371917ba9ee
+    sha256: 78884e7c1d4b00ce3cea67b44566851c4343c120abd683433ce934a68ea58872
     folder: certifi
   # bootstrap pip and setuptools to avoid circular dependency
   # but without losing metadata
@@ -24,20 +24,20 @@ build:
   number: 0
 
 requirements:
-  build:
-    - python                                # [build_platform != target_platform]
   host:
     - python
   run:
     - python
 
 test:
+  requires:
+    - python <3.10
   imports:
     - certifi
 
 about:
-  home: https://github.com/certifi/python-certifi
-  license: MPL-2.0
+  home: http://certifi.io/
+  license: ISC
   license_file: certifi/LICENSE
   summary: Python package for providing Mozilla's CA Bundle.
   description: |
@@ -55,4 +55,3 @@ extra:
     - sigmavirus24
     - ocefpaf
     - mingwandroid
-    - jjhelmus
