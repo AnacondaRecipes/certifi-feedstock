@@ -32,12 +32,7 @@ requirements:
 test:
   requires:
     - python <3.10
-  files:
-    - test.sh
-  commands:
-    - chmod u+x test.sh && ./test.sh #[unix]
-  imports:
-    - certifi
+    - pip
 
 about:
   home: http://certifi.io/
