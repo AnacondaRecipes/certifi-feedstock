@@ -21,7 +21,7 @@ source:
     folder: setuptools_wheel
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -31,12 +31,16 @@ requirements:
 
 test:
   requires:
-    - python <3.10
+    - python
     - pip
+  commands:
+    - pip check
+  imports:
+    - certifi
 
 about:
   home: http://certifi.io/
-  license: ISC
+  license: MPL-2.0
   license_file: certifi/LICENSE
   summary: Python package for providing Mozilla's CA Bundle.
   description: |
