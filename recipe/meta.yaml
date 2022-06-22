@@ -27,6 +27,7 @@ build:
 requirements:
   host:
     - python
+    - wheel
   run:
     - python
 
