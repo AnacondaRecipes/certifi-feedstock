@@ -1,5 +1,6 @@
 {% set version = "2022.9.24" %}
 
+{% set wheel_version = "0.37.1" %}
 {% set pip_version = "20.2.3" %}
 {% set setuptools_version = "49.6.0" %}
 
@@ -11,8 +12,11 @@ source:
   - url: https://pypi.io/packages/source/c/certifi/certifi-{{ version }}.tar.gz
     sha256: 0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14
     folder: certifi
-  # bootstrap pip and setuptools to avoid circular dependency
+  # bootstrap pip, wheel and setuptools to avoid circular dependency
   # but without losing metadata
+  - url: https://pypi.io/packages/py2.py3/w/wheel/wheel-{{ wheel_version }}-py2.py3-none-any.whl
+    sha256: 4bdcd7d840138086126cd09254dc6195fb4fc6f01c050a1d7236f2630db1d22a d
+    folder: wheel_wheel
   - url: https://pypi.io/packages/py2.py3/p/pip/pip-{{ pip_version }}-py2.py3-none-any.whl
     sha256: 0f35d63b7245205f4060efe1982f5ea2196aa6e5b26c07669adcf800e2542026
     folder: pip_wheel
@@ -27,7 +31,6 @@ build:
 requirements:
   host:
     - python
-    - wheel
   run:
     - python
 
