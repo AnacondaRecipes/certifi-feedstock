@@ -1,4 +1,4 @@
-{% set version = "2022.12.07" %}
+{% set version = "2022.12.7" %}
 
 {% set pip_version = "20.2.3" %}
 {% set setuptools_version = "49.6.0" %}
