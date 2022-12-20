@@ -1,15 +1,17 @@
-{% set version = "2022.9.24" %}
+{% set name = "certifi" %}
+{% set version = "2022.12.7" %}
+{% set sha256 = "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3" %}
 
 {% set pip_version = "20.2.3" %}
 {% set setuptools_version = "49.6.0" %}
 
 package:
-  name: certifi
+  name: {{ name }}
   version: {{ version }}
 
 source:
   - url: https://pypi.io/packages/source/c/certifi/certifi-{{ version }}.tar.gz
-    sha256: 0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14
+    sha256: {{ sha256 }}
     folder: certifi
   # bootstrap pip and setuptools to avoid circular dependency
   # but without losing metadata
@@ -22,7 +24,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<36]
+  skip: True  # [py<37]
 
 requirements:
   host:
@@ -42,8 +44,8 @@ test:
 about:
   home: https://certifi.io/
   license: MPL-2.0
-  license_file: certifi/LICENSE
-  license_family: Other
+  license_family: Mozilla
+  license_file: LICENSE
   summary: Python package for providing Mozilla's CA Bundle.
   description: |
     Certifi is a curated collection of Root Certificates for validating the
@@ -51,7 +53,6 @@ about:
     hosts.
   doc_url: https://github.com/certifi/python-certifi/blob/master/README.rst
   dev_url: https://github.com/certifi/python-certifi
-  doc_source_url: https://github.com/certifi/python-certifi/blob/master/README.rst
 
 extra:
   recipe-maintainers:
