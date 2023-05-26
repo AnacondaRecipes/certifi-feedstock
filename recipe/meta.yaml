@@ -1,7 +1,7 @@
 {% set version = "2023.5.7" %}
 
 {% set pip_version = "20.2.3" %}
-{% set setuptools_version = "49.6.0" %}
+{% set setuptools_version = "65.5.0" %}
 
 package:
   name: certifi
@@ -19,7 +19,7 @@ source:
     sha256: 0f35d63b7245205f4060efe1982f5ea2196aa6e5b26c07669adcf800e2542026
     folder: pip_wheel
   - url: https://pypi.io/packages/py3/s/setuptools/setuptools-{{ setuptools_version }}-py3-none-any.whl
-    sha256: 4dd5bb0a0a0cff77b46ca5dd3a84857ee48c83e8223886b556613c724994073f
+    sha256: f62ea9da9ed6289bfe868cd6845968a2c854d1427f8548d52cae02a42b4f0356
     folder: setuptools_wheel
 
 build:
