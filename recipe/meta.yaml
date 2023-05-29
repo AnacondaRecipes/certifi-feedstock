@@ -1,7 +1,7 @@
 {% set version = "2023.5.7" %}
 
-{% set pip_version = "20.2.3" %}
-{% set setuptools_version = "65.5.0" %}
+{% set pip_version = "23.1.2" %}
+{% set setuptools_version = "67.8.0" %}
 
 package:
   name: certifi
@@ -15,11 +15,11 @@ source:
   # but without losing metadata
   # Please note when using conda-build locally, may get following error: certifi cannot depend on itself
   # Try pushing and refer to Prefect logs
-  - url: https://pypi.io/packages/py2.py3/p/pip/pip-{{ pip_version }}-py2.py3-none-any.whl
-    sha256: 0f35d63b7245205f4060efe1982f5ea2196aa6e5b26c07669adcf800e2542026
+  - url: https://pypi.io/packages/py3/p/pip/pip-{{ pip_version }}-py3-none-any.whl
+    sha256: 3ef6ac33239e4027d9a5598a381b9d30880a1477e50039db2eac6e8a8f6d1b18
     folder: pip_wheel
   - url: https://pypi.io/packages/py3/s/setuptools/setuptools-{{ setuptools_version }}-py3-none-any.whl
-    sha256: f62ea9da9ed6289bfe868cd6845968a2c854d1427f8548d52cae02a42b4f0356
+    sha256: 5df61bf30bb10c6f756eb19e7c9f3b473051f48db77fddbe06ff2ca307df9a6f
     folder: setuptools_wheel
 
 build:
