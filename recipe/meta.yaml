@@ -1,16 +1,17 @@
-{% set version = "2025.6.15" %}
+{% set name = "certifi" %}
+{% set version = "2025.7.14" %}
 
 {% set pip_version = "24.3.1" %}
 {% set setuptools_version = "75.6.0" %}
 
 package:
-  name: certifi
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/c/certifi/certifi-{{ version }}.tar.gz
-    sha256: d747aa5a8b9bbbb1bb8c22bb13e22bd1f18e9796defa16bab421f7f7a317323b
-    folder: certifi
+  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: 8ea99dbdfaaf2ba2f9bac77b9249ef62ec5218e7c2b2e903378ed5fccf765995
+    folder: {{ name }}
   # bootstrap pip and setuptools to avoid circular dependency
   # but without losing metadata
   # Please note when using conda-build locally, may get following error: certifi cannot depend on itself
@@ -24,7 +25,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<36]
+  skip: True  # [py<37]
 
 requirements:
   host:
