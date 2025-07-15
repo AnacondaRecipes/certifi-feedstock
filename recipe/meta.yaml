@@ -9,8 +9,8 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 8ea99dbdfaaf2ba2f9bac77b9249ef62ec5218e7c2b2e903378ed5fccf765995
+  - url: https://github.com/certifi/python-certifi/archive/refs/tags/2025.07.14.tar.gz
+    sha256: 89734fb727880c3ddc37ad526b6de23159188c41468d6d5a0fab92642688bd46
     folder: {{ name }}
   # bootstrap pip and setuptools to avoid circular dependency
   # but without losing metadata
@@ -35,12 +35,16 @@ requirements:
     - python
 
 test:
+  source_files:
+    - certifi/certifi/tests
   imports:
     - certifi
   requires:
     - pip
+    - pytest
   commands:
     - pip check
+    - pytest -vv certifi/certifi/tests
 
 about:
   home: https://certifi.io/
