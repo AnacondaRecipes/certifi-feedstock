@@ -15,7 +15,7 @@ source:
     # tests and tests data files
   - url: https://github.com/certifi/python-certifi/archive/refs/tags/2025.08.03.zip
     sha256: 031c3f1771fcd3d351af44982e05db1df2300df54a0cd9d0d22015a194c0f01b
-    folder: gh_src
+    folder: {{ name }}
 
   # bootstrap pip and setuptools to avoid circular dependency
   # but without losing metadata
@@ -30,7 +30,6 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   skip: True  # [py<37]
 
 requirements:
@@ -44,7 +43,7 @@ requirements:
 
 test:
   source_files:
-    - gh_src/certifi/tests
+    - {{ name }}
   imports:
     - certifi
   requires:
@@ -52,7 +51,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - python -m unittest discover -s gh_src/certifi/tests
+    - python -m unittest discover -s {{ name }}
 
 about:
   home: https://certifi.io
