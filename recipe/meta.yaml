@@ -9,14 +9,9 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/certifi-{{ version }}.tar.gz
-    sha256: e564105f78ded564e3ae7c923924435e1daa7463faeab5bb932bc53ffae63407
-
-    # tests and tests data files
-  - url: https://github.com/certifi/python-certifi/archive/refs/tags/2025.08.03.zip
-    sha256: 031c3f1771fcd3d351af44982e05db1df2300df54a0cd9d0d22015a194c0f01b
+  - url: https://github.com/certifi/python-certifi/archive/refs/tags/2025.08.03.tar.gz
+    sha256: fdbe80c4c92fc99449759a62e06508667eabbdb04f1ace6010b88028de8d2c97
     folder: {{ name }}
-
   # bootstrap pip and setuptools to avoid circular dependency
   # but without losing metadata
   # Please note when using conda-build locally, may get following error: certifi cannot depend on itself
@@ -43,26 +38,27 @@ requirements:
 
 test:
   source_files:
-    - {{ name }}
+    - certifi/certifi/tests
   imports:
     - certifi
   requires:
     - pip
+    - pytest
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - python -m unittest discover -s {{ name }}
+    - pytest -vv certifi/certifi/tests
 
 about:
   home: https://certifi.io
   license: MPL-2.0
-  license_file: LICENSE
-  license_family: OTHER
-  summary: Python package for providing Mozilla's CA Bundle
+  license_file: certifi/LICENSE
+  license_family: Other
+  summary: Python package for providing Mozilla's CA Bundle.
   description: |
-    Certifi provides Mozilla's carefully curated collection of Root Certificates 
-    for validating the trustworthiness of SSL certificates while verifying 
-    the identity of TLS hosts
+    Certifi is a curated collection of Root Certificates for validating the
+    trustworthiness of SSL certificates while verifying the identity of TLS
+    hosts.
   doc_url: https://github.com/certifi/python-certifi/blob/master/README.rst
   dev_url: https://github.com/certifi/python-certifi
 
@@ -73,3 +69,6 @@ extra:
     - sigmavirus24
     - ocefpaf
     - mingwandroid
+  skip-lints:
+    # As we are bootstrapping this build we do not require python build tools
+    - missing_python_build_tool
