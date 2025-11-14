@@ -8,8 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/certifi/python-certifi/archive/refs/tags/2025.10.05.tar.gz
-    sha256: c7016bd510a9b54bf558bd9e3dd40a78688490990c7861234f367219f6ec2ccf
+  - url: https://github.com/certifi/python-certifi/archive/refs/tags/{{ version }}.tar.gz
+    sha256: 3e67679bfbd220da166ee43339f498b605cfa0e836383f2e7b4da2d68364c0f2
     folder: {{ name }}
   # bootstrap pip and setuptools to avoid circular dependency
   # but without losing metadata
