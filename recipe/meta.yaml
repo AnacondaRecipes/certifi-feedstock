@@ -1,5 +1,6 @@
 {% set name = "certifi" %}
 {% set version = "2026.01.04" %}
+{% set normalized_version = ".".join(version.split(".") | map("int") | map("string")) %}
 {% set pip_version = "24.3.1" %}
 {% set setuptools_version = "75.6.0" %}
 
@@ -42,7 +43,7 @@ test:
     - pytest
   commands:
     - pip check
-    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ normalized_version }}')"
     - pytest -vv certifi/certifi/tests
 
 about:
