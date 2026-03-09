@@ -1,8 +1,10 @@
 {% set name = "certifi" %}
-{% set version = "2026.01.04" %}
+{% set version = "2026.02.25" %}
 {% set normalized_version = ".".join(version.split(".") | map("int") | map("string")) %}
-{% set pip_version = "24.3.1" %}
-{% set setuptools_version = "75.6.0" %}
+
+{% set pip_version = "25.0.1" %}
+{% set setuptools_version = "75.8.0" %}
+{% set wheel_version = "0.45.1" %}
 
 package:
   name: {{ name }}
@@ -10,22 +12,29 @@ package:
 
 source:
   - url: https://github.com/certifi/python-certifi/archive/refs/tags/{{ version }}.tar.gz
-    sha256: bd68260257cad030f8b0851f6c50adcfb3fac0e1088aae39cbe28e8bbd9a0453
+    sha256: 37352b989981a636a6c95a24bb057b3a877f2f78215f199b43569239b9a76fc1
     folder: {{ name }}
-  # bootstrap pip and setuptools to avoid circular dependency
-  # but without losing metadata
-  # Please note when using conda-build locally, may get following error: certifi cannot depend on itself
-  # Try pushing and refer to Prefect logs
+  # Download bootstrapped wheels into their respective source directories
   - url: https://pypi.org/packages/py3/p/pip/pip-{{ pip_version }}-py3-none-any.whl
-    sha256: 3790624780082365f47549d032f3770eeb2b1e8bd1f7b2e02dace1afa361b4ed
-    folder: pip_wheel
+    sha256: c46efd13b6aa8279f33f2864459c8ce587ea6a1a59ee20de055868d8f7688f7f
+    folder: boostrap_wheels
   - url: https://pypi.org/packages/py3/s/setuptools/setuptools-{{ setuptools_version }}-py3-none-any.whl
-    sha256: ce74b49e8f7110f9bf04883b730f4765b774ef3ef28f722cce7c273d253aaf7d
-    folder: setuptools_wheel
+    sha256: e3982f444617239225d675215d51f6ba05f845d4eec313da4418fdbb56fb27e3
+    folder: boostrap_wheels
+  - url: https://pypi.org/packages/py3/w/wheel/wheel-{{ wheel_version }}-py3-none-any.whl
+    sha256: 708e7481cc80179af0e556bbf0cc00b8444c7321e2700b8d8580231d13017248
+    folder: boostrap_wheels
 
 build:
   number: 0
   skip: true  # [py<37]
+  script_env:
+    # Add bootstrapped wheels to `PYTHONPATH` so Python can find them for the build
+    - >-
+      PYTHONPATH={{ os.sep.join([SRC_DIR|default("."), "boostrap_wheels"]) ~ os.pathsep ~ os.environ.get("PYTHONPATH", "") }}
+  script:
+    - cd certifi
+    - {{ PYTHON }} -m pip install . --ignore-installed --no-deps --no-build-isolation -vv
 
 requirements:
   host:
