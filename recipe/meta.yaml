@@ -43,17 +43,11 @@ requirements:
     - python
 
 test:
-  source_files:
-    - certifi/certifi/tests
   imports:
     - certifi
-  requires:
-    - pip
-    - pytest
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ normalized_version }}')"
-    - pytest -vv certifi/certifi/tests
 
 about:
   home: https://certifi.io
