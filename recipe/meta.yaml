@@ -1,10 +1,10 @@
 {% set name = "certifi" %}
-{% set version = "2026.04.22" %}
+{% set version = "2026.05.20" %}
 {% set normalized_version = ".".join(version.split(".") | map("int") | map("string")) %}
 
-{% set pip_version = "25.0.1" %}
-{% set setuptools_version = "75.8.0" %}
-{% set wheel_version = "0.45.1" %}
+{% set pip_version = "26.0.1" %}
+{% set setuptools_version = "82.0.1" %}
+{% set wheel_version = "0.46.3" %}
 
 package:
   name: {{ name }}
@@ -12,17 +12,17 @@ package:
 
 source:
   - url: https://github.com/certifi/python-certifi/archive/refs/tags/{{ version }}.tar.gz
-    sha256: b0d792990086c46a5884cf011957c3a01f9139af199eb9f4f7a3c5db228b0edb
+    sha256: aad12928c809391f090315cf908942f0c2ba7a19f21d11a0281b13836af47c51
     folder: {{ name }}
   # Download bootstrapped wheels into their respective source directories
   - url: https://pypi.org/packages/py3/p/pip/pip-{{ pip_version }}-py3-none-any.whl
-    sha256: c46efd13b6aa8279f33f2864459c8ce587ea6a1a59ee20de055868d8f7688f7f
+    sha256: bdb1b08f4274833d62c1aa29e20907365a2ceb950410df15fc9521bad440122b
     folder: boostrap_wheels
   - url: https://pypi.org/packages/py3/s/setuptools/setuptools-{{ setuptools_version }}-py3-none-any.whl
-    sha256: e3982f444617239225d675215d51f6ba05f845d4eec313da4418fdbb56fb27e3
+    sha256: a59e362652f08dcd477c78bb6e7bd9d80a7995bc73ce773050228a348ce2e5bb
     folder: boostrap_wheels
   - url: https://pypi.org/packages/py3/w/wheel/wheel-{{ wheel_version }}-py3-none-any.whl
-    sha256: 708e7481cc80179af0e556bbf0cc00b8444c7321e2700b8d8580231d13017248
+    sha256: 4b399d56c9d9338230118d705d9737a2a468ccca63d5e813e2a4fc7815d8bc4d
     folder: boostrap_wheels
 
 build:
