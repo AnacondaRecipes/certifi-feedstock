@@ -1,5 +1,5 @@
 {% set name = "certifi" %}
-{% set version = "2026.05.20" %}
+{% set version = "2026.06.17" %}
 {% set normalized_version = ".".join(version.split(".") | map("int") | map("string")) %}
 
 {% set pip_version = "26.0.1" %}
@@ -12,7 +12,7 @@ package:
 
 source:
   - url: https://github.com/certifi/python-certifi/archive/refs/tags/{{ version }}.tar.gz
-    sha256: aad12928c809391f090315cf908942f0c2ba7a19f21d11a0281b13836af47c51
+    sha256: de76d4c70f5a4fecce2522a11e01b57ea75d41d878bc590dcc43290d26a0acc8
     folder: {{ name }}
   # Download bootstrapped wheels into their respective source directories
   - url: https://pypi.org/packages/py3/p/pip/pip-{{ pip_version }}-py3-none-any.whl
