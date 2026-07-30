@@ -2,6 +2,10 @@
 {% set version = "2026.07.22" %}
 {% set normalized_version = ".".join(version.split(".") | map("int") | map("string")) %}
 
+{% set pip_version = "26.0.1" %}
+{% set setuptools_version = "82.0.1" %}
+{% set wheel_version = "0.46.3" %}
+
 package:
   name: {{ name }}
   version: {{ normalized_version }}
@@ -24,21 +28,23 @@ source:
 build:
   number: 0
   skip: true  # [py<37]
-  script: {{ PYTHON }} -m pip install . --ignore-installed --no-deps --no-build-isolation -vv
+  script_env:
+    # Add bootstrapped wheels to `PYTHONPATH` so Python can find them for the build
+    - >-
+      PYTHONPATH={{ os.sep.join([SRC_DIR|default("."), "boostrap_wheels"]) ~ os.pathsep ~ os.environ.get("PYTHONPATH", "") }}
+  script:
+    - cd certifi
+    - {{ PYTHON }} -m pip install . --ignore-installed --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - python
-    - pip
-    - setuptools >=42.0.0
-    - wheel
   run:
     - python
-    - pip
 
 test:
   source_files:
-    - certifi/tests
+    - certifi/certifi/tests
   imports:
     - certifi
   requires:
@@ -47,12 +53,12 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ normalized_version }}')"
-    - pytest -vv certifi/tests
+    - pytest -vv certifi/certifi/tests
 
 about:
   home: https://certifi.io
   license: MPL-2.0
-  license_file: LICENSE
+  license_file: certifi/LICENSE
   license_family: Other
   summary: Python package for providing Mozilla's CA Bundle.
   description: |
@@ -69,4 +75,6 @@ extra:
     - sigmavirus24
     - ocefpaf
     - mingwandroid
-
+  skip-lints:
+    # As we are bootstrapping this build we do not require python build tools
+    - missing_python_build_tool
