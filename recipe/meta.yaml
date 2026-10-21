@@ -26,8 +26,10 @@ source:
     folder: boostrap_wheels
 
 build:
-  number: 0
-  skip: true  # [py<37]
+  number: 1
+  # keep as noarch so that unsupported platforms can use this package
+  # see: https://github.com/AnacondaRecipes/repodata-hotfixes/pull/353
+  noarch: python
   script_env:
     # Add bootstrapped wheels to `PYTHONPATH` so Python can find them for the build
     - >-
@@ -38,9 +40,9 @@ build:
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
   run:
-    - python
+    - python >={{ python_min }}
 
 test:
   source_files:
@@ -48,6 +50,7 @@ test:
   imports:
     - certifi
   requires:
+    - python {{ python_min }}
     - pip
     - pytest
   commands:
