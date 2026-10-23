@@ -1,5 +1,5 @@
 {% set name = "certifi" %}
-{% set version = "2026.10.19" %}
+{% set version = "2026.10.23" %}
 {% set normalized_version = ".".join(version.split(".") | map("int") | map("string")) %}
 
 {% set pip_version = "26.0.1" %}
@@ -12,7 +12,7 @@ package:
 
 source:
   - url: https://github.com/certifi/python-certifi/archive/refs/tags/{{ version }}.tar.gz
-    sha256: 8080c57422282dcaea398e9ad36c2571410a74472f1e705b2c3366a2cfbe22f9
+    sha256: 2780dc8e8ee06a835e0f0285d9e234edc56dbabdfbc0ec2195b9ee93dc0f8ff8
     folder: {{ name }}
   # Download bootstrapped wheels into their respective source directories
   - url: https://pypi.org/packages/py3/p/pip/pip-{{ pip_version }}-py3-none-any.whl
@@ -26,7 +26,7 @@ source:
     folder: boostrap_wheels
 
 build:
-  number: 1
+  number: 0
   # keep as noarch so that unsupported platforms can use this package
   # see: https://github.com/AnacondaRecipes/repodata-hotfixes/pull/353
   noarch: python
